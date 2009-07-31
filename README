@@ -1,0 +1,10 @@
+Banana, Cucumber in yellow and python.
+======================================
+
+At the moment, the code is more like a proof of concept.
+
+TODO:
+* Write a set of example rules for a more challenging field of interest: Web applications for example
+* Provide nicer output
+* Add directory based testing suites
+* Set rules how to import what from a directory
