@@ -3,7 +3,6 @@ import re
 import sys
 import glob
 import os
-import curses
 import logger
 import logging
 from registration import matchingDict
