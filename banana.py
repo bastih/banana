@@ -21,6 +21,7 @@ def testScenario(scenarioLines):
     for line in scenarioLines:
         matched = False
         if broken:
+            log.info(line.strip()+' # was not run')
             break
         try:
             for regex, func in matchingDict.iteritems():
