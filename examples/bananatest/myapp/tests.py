@@ -1,9 +1,9 @@
 from django.test import TestCase
-from banana import registerScenarioModule
+from banana import register_module
 import scenarios
 import os
 
 class BananaTest(TestCase):
     pass
 
-registerScenarioModule(scenarios, BananaTest)
+register_module(scenarios, BananaTest)
