@@ -1,0 +1,3 @@
+Given the user opens the admin
+The page should contain the text "Username"
+The page should contain the text "Password"

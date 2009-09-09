@@ -1,0 +1,2 @@
+Given the user opens the page
+The page should contain the text "I am a text in a view"
