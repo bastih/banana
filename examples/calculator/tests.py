@@ -11,6 +11,5 @@ register_module(scenarios, CalculatorTestCase)
 
 if __name__ == '__main__':
     suite = loader.loadTestsFromTestCase(CalculatorTestCase)
-    print dir(CalculatorTestCase)
     runner = TextTestRunner(verbosity=2)
     runner.run(suite)
