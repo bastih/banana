@@ -1,0 +1,10 @@
+To install banana, run
+
+    python setup.py install
+    
+The webapplication example "bananatest" requires django to be on the PYTHONPATH,
+use
+
+    pip install Djangos
+    
+to install Django 1.1 for you.

@@ -1,10 +1,31 @@
 Banana, Cucumber in yellow and python.
 ======================================
 
-At the moment, the code is more like a proof of concept.
+Banana is a tool that is similar to Cucumber(http://cukes.info) but currently
+doesn't try to completely implement Ghenkis, as it seems to encourage ascii-art
+more than providing something decently readable.
 
-TODO:
-* Write a set of example rules for a more challenging field of interest: Web applications for example
-* Provide nicer output
-* Add directory based testing suites
-* Set rules how to import what from a directory
+Cucumber is a tool that provides the means to ease writing tests in a human comprehensible
+manner in a way that even people that are not proficient in python will be able
+to write tests and they are called scenario.
+
+Such a scenario could look like::
+
+    Given I open the about page
+    When I click on "contact"
+    Expect to see the contact form
+
+A developer on the project will then provide a regex and function so that a test
+can actually do something::
+
+    from banana import matches
+
+    @matches(r'Given I open the about page')
+    def initialize_page(t):
+        t.client = Client()
+        t.response = t.client.get('/about/')
+        t.failIf(t.response.code != 200)
+
+If developer and scenario-writer are able to constitute a few rules for setting
+up those scenarios, it will be easier for people to contribute even if they are
+not familiar with python.
