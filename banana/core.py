@@ -11,21 +11,16 @@ from exceptions import MultipleMatchException, NoMatchException
 from utils import normalize, locate
  
 log = logging.getLogger('banana')
-files = set()
 
 
 class TestInstance(object):
     """Provide an empty object as common ground between tests"""
     pass
 
-def create_test_wrap(f):
-    def _wrap(self, f=f):
-        def _inner(f):
-            return run_test(f, self)
-        return _inner(f)
-    return _wrap
-
 def test_scenario(scenarioLines, testInstance):
+    """
+    Parse scenario lines and run matching function
+    """
     #TODO: account for parameterised tests
     line_iter = iter(scenarioLines)
     for line in line_iter:
@@ -52,24 +47,32 @@ def test_scenario(scenarioLines, testInstance):
         else:
             log.success(line)
 
+def create_test_wrap(f):
+    def _wrap(self, f=f):
+        def _inner(f):
+            return run_test(f, self)
+        return _inner(f)
+    return _wrap
+
 
 def register_module(module, testClass):
-    """Register a python module and prepare a testClass with all 
+    """
+    Register a python module and prepare a testClass with all 
     contained scenario files.
     """
     path = os.path.dirname(module.__file__)
-    for f in locate('*.scenario', path):
-        files.add(f)
     __import__(module.__name__+".rules")
-    
-    for f in files:
+    for f in locate('*.scenario', path):
         setattr(
             testClass,
             'test_'+ normalize(f, path), 
             create_test_wrap(open(f).xreadlines())
         )
 
-def register_class(testClass):    
+def register_class(testClass):
+    """
+    Register a class with scenario-docstrings for testing
+    """
     for name in dir(testClass):
         func = getattr(testClass, name)
         if name.startswith('scenario') and type(func) is types.FunctionType:
