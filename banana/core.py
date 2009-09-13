@@ -15,6 +15,7 @@ files = set()
 
 
 class TestInstance(object):
+    """Provide an empty object as common ground between tests"""
     pass
 
 def create_test_wrap(f):
@@ -68,10 +69,9 @@ def register_module(module, testClass):
             create_test_wrap(open(f).xreadlines())
         )
 
-def register_class(module, testClass):
-    __import__(module.__name__)
-    
-    for name, func in testClass.__dict__.items()[:]:
+def register_class(testClass):    
+    for name in dir(testClass):
+        func = getattr(testClass, name)
         if name.startswith('scenario') and type(func) is types.FunctionType:
             setattr(
                 testClass,
