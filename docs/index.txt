@@ -12,7 +12,7 @@ Contents
    :numbered:
 
    idea
-   scenarios
+   usage
 
 
 Indices and tables

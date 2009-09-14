@@ -48,7 +48,7 @@ copyright = u'2009, Banana contributors'
 #
 # The short X.Y version.
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
-import banana
+from banana import *
 
 version = '0.1a'
 # The full version, including alpha/beta/rc tags.
