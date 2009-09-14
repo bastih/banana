@@ -1,13 +1,13 @@
-.. scenarios:
+.. usage:
 
 =========
-Scenarios
+Usage
 =========
 
 Writing a test
 ==================
 
-A test in banana always ehas a minimum of 2 parts:
+A test in banana always has a minimum of 2 parts:
 
   * A scenario, containing multiple lines of human readable text
   * Functions that provide translations for those lines
@@ -45,7 +45,6 @@ and pass it into the function register_module::
 This will look into the module and find all *.scenario files in the module dictionary
 or any directory below. In order to work flawlessly with programs relying on python
 TestCase behaviour, register_module will create new test*-Methods on the given class.
-
 
 Writing rules
 =================
