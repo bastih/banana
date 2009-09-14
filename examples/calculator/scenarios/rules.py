@@ -1,4 +1,4 @@
-from banana.registration import matches
+from banana import matches
 from calculator import Calculator
 
 @matches(r'^Given the user opens the calculator$')
