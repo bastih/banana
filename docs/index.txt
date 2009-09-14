@@ -1,0 +1,23 @@
+.. _index:
+
+================================
+Banana - pythonic cucumber 
+==========================
+
+Contents
+========
+
+.. toctree::
+   :maxdepth: 2
+   :numbered:
+
+   idea
+   scenarios
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

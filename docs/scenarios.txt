@@ -1,0 +1,117 @@
+.. scenarios:
+
+=========
+Scenarios
+=========
+
+Writing a test
+==================
+
+A test in banana always ehas a minimum of 2 parts:
+
+  * A scenario, containing multiple lines of human readable text
+  * Functions that provide translations for those lines
+  
+Scenarios
+=============
+
+Scenarios should be provided as a python module, which we'll name 'scenarios' in
+the following documentation::
+
+    scenarios/
+    scenarios/__init__.py (empty)
+    scenarios/rules.py
+    scenarios/*.scenario
+    
+The file rules.py will be imported by banana and should thus contain the mapping
+between functions and matching regexes.
+
+Registering Scenarios
+=========================
+
+To register your scenarios with your tests, you need to provide a TestCase (sub)class
+and pass it into the function register_module::
+
+    from unittest import TestCase
+    import scenarios
+    
+    from banana import register_module
+    
+    class MyTestCase(TestCase):
+        pass
+
+    register_module(scenarios, MyTestClass)
+    
+This will look into the module and find all *.scenario files in the module dictionary
+or any directory below. In order to work flawlessly with programs relying on python
+TestCase behaviour, register_module will create new test*-Methods on the given class.
+
+
+Writing rules
+=================
+
+To declare a translation rule, write a function decorated with the matches-Decorator.
+
+This function should take at least one parameter which will be the instance of a
+test class. The easiest way to think of this parameter is that it'll work like
+the python self, and the rule runs in the context of the provided Testclass -
+more information on that will be provided in the Registering My Scenarios section
+of this document. Furthermore, self should be used to share information between
+different consecutive rules.
+
+Thus, the easiest possible rule file should look like this::
+
+    from banana import matches
+
+    @matches(r'^Given the user starts the application$')
+    def appStart(self):
+        self.app = App()
+
+The matches-decorator takes exactly one argument which will be used to match against
+lines of the scenario. In many cases you will want to use regex groups so you don't
+have to add a matches decorator for every single alteration of a certain line. Also
+you might want to be able to change what a test does depending on an argument or
+multiple arguments.::
+
+    @matches(r'Click the "(.*)" button')
+    def clickButton(self, button):
+        self.app.click(button)
+
+As self usually exposes a decendant of a unittest.TestCase, you can use everything
+that is provided with this class or the class that you provide.
+
+The examples provided would be able to run a simple scenario like::
+
+    Given the user starts the application
+    Click the "Login" button
+
+If you need general setup and teardown like in the usual python TestCase, just
+enhance the TestCase you are registering the scenarios on with the appropriate
+methods. Banana should also be able to enhance an already existing test class,
+if you want to be able to have all your setup ready and running.
+
+Experimental docstring support
+==================================
+
+Banana also implements an experimental docstring-inline style implementation of tests.
+Given the above example, we could also implement these like this::
+
+    from banana import matches, register_class
+
+    class InlineTests(unittest.TestCase):
+        
+        def scenario_no1(self):
+            """Given the user starts the application
+            Click the "Login" button"""
+        
+        @matches(r'Click the "(.*)" button')
+        def clickButton(self, button):
+            self.app.click(button)
+
+        @matches(r'^Given the user starts the application$')
+        def appStart(self):
+            self.app = App()
+        
+    register_class(InlineTests)
+    
+register_class will turn all scenario*-Methods into test* methods.

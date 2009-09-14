@@ -1,0 +1,32 @@
+.. idea:
+
+========
+Idea
+========
+
+In a perfect world, everyone knows the language your project is written in.
+Furthermore, every single one of your users is comfortable writing tests.
+So everyone interested in contributing to your project can easily do so without
+any barriers.
+
+.. image:: _static/perfect.png
+
+Unfortunately, the real world rather looks like this:
+
+.. image:: _static/realworld.png
+
+Someone provides you with a scenario, you provide the test. A multitude of reasons
+can be found for that:
+
+  * the contributor is not proficient in python
+  * the contributor is not willing to write complicated python tests
+  * you want your tests too be human-readable
+
+That's why banana tries to provide tools to allow for such a scenario:
+
+.. image:: _static/banana2.png
+
+The developer then becomes a translator of those scenarios by providing mappings
+to functions that then actually run tests according to its description.
+
+.. image:: _static/banana.png
