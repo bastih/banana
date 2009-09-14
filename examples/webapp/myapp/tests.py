@@ -8,6 +8,7 @@ class BananaTest(TestCase):
 
 class InlineTest(TestCase):
     """An alternative way to represent tests"""
+    
     @matches(r'^Given the user opens some weird page')
     def inclassInit(self):
         self.response = self.client.get('/admin/')
@@ -21,4 +22,3 @@ class InlineTest(TestCase):
     
 register_class(InlineTest)
 register_module(scenarios, BananaTest)
-#register_class(scenarios.rules, InlineTest)
